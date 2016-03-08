@@ -1,0 +1,57 @@
+clear;
+simAfile = 'input/simA.jpg';
+simBfile = 'input/simB.jpg';
+transAfile = 'input/transA.jpg';
+transBfile = 'input/transB.jpg';
+
+img = double(imread(transAfile))./255.0;
+R = computeHarrisValue(img);
+points = non_maximal_suppression(R,400);
+figure(1);clf;
+imshow(img, [min(img(:)) max(img(:))]);
+pointGrad = getGradientAtPoints(img, points);
+hold on;
+scale = 5;
+vlPoints = [points(2,:); points(1,:); scale*ones(1,size(points,2)); pointGrad];
+h = vl_plotframe(vlPoints);
+set(h,'linewidth',1);
+hold off;
+
+img = double(imread(transBfile))./255.0;
+R = computeHarrisValue(img);
+points = non_maximal_suppression(R,400);
+figure(2);clf;
+imshow(img, [min(img(:)) max(img(:))]);
+pointGrad = getGradientAtPoints(img, points);
+hold on;
+scale = 5;
+vlPoints = [points(2,:); points(1,:); scale*ones(1,size(points,2)); pointGrad];
+h = vl_plotframe(vlPoints);
+set(h,'linewidth',1);
+hold off;
+
+img = double(imread(simAfile))./255.0;
+R = computeHarrisValue(img);
+points = non_maximal_suppression(R,400);
+figure(3);clf;
+imshow(img, [min(img(:)) max(img(:))]);
+pointGrad = getGradientAtPoints(img, points);
+hold on;
+scale = 5;
+vlPoints = [points(2,:); points(1,:); scale*ones(1,size(points,2)); pointGrad];
+h = vl_plotframe(vlPoints);
+set(h,'linewidth',1);
+hold off;
+
+img = double(imread(simBfile))./255.0;
+R = computeHarrisValue(img);
+points = non_maximal_suppression(R,400);
+figure(4);clf;
+imshow(img, [min(img(:)) max(img(:))]);
+pointGrad = getGradientAtPoints(img, points);
+hold on;
+scale = 5;
+vlPoints = [points(2,:); points(1,:); scale*ones(1,size(points,2)); pointGrad];
+h = vl_plotframe(vlPoints);
+set(h,'linewidth',1);
+hold off;
